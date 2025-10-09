@@ -2,22 +2,28 @@
 #include "board.h"
 #include "snake.h"
 using namespace std;
-const int ROWS = 20;
-const int COLS = 40;
-
+const int ROWS = 10;
+const int COLS = 20;
 void printBoard() {
+    for (int c = 0; c < COLS + 2; c++) cout << "🟥";
+    cout << "\n";
+
     for (int r = 0; r < ROWS; r++) {
+        cout << "🟥";
         for (int c = 0; c < COLS; c++) {
             bool printed = false;
-            for (const auto& segment : snake) {
-                if (segment.first == r && segment.second == c) {
-                    cout << "🟩";  // snake body emoji
+            for (size_t i = 0; i < snake.size(); i++) {
+                if (snake[i].first == r && snake[i].second == c) {
+                    cout << (i == 0 ? "🐍" : "🟢");
                     printed = true;
                     break;
                 }
             }
-            if(!printed) cout << "⬛";
+            if (!printed) cout << "⬛";
         }
-        cout << endl;
+        cout << "🟥\n";
     }
+
+    for (int c = 0; c < COLS + 2; c++) cout << "🟥";
+    cout << "\n";
 }

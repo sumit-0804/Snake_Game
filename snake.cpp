@@ -2,8 +2,8 @@
 
 deque<pair<int, int>> snake;
 
-const int ROWS = 20;
-const int COLS = 40;
+const int ROWS = 10;
+const int COLS = 20;
 
 void initSnake() {
     int midRow = ROWS / 2;
