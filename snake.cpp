@@ -12,3 +12,11 @@ void initSnake() {
         snake.push_back({midRow, midCol - i});
     }
 }
+
+void drawSnake(vector<vector<char>>& board) {
+    for (auto segment : snake) {
+        int r = segment.first;
+        int c = segment.second;
+        board[r][c] = 'O';
+    }
+}
