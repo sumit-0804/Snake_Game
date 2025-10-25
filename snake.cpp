@@ -20,3 +20,32 @@ void drawSnake(vector<vector<char>>& board) {
         board[r][c] = 'O';
     }
 }
+
+enum Direction { UP, DOWN, LEFT, RIGHT };
+Direction dir = RIGHT;
+
+void moveSnake() {
+    pair<int, int> head = snake.front();
+    switch (dir) {
+        case UP: head.first--; break;
+        case DOWN: head.first++; break;
+        case LEFT: head.second--; break;
+        case RIGHT: head.second++; break;
+    }
+
+    snake.push_front(head);
+    snake.pop_back(); // remove tail (no growth yet)
+}
+
+bool checkCollision() {
+    pair<int, int> head = snake.front();
+    // Boundary collision
+    if (head.first < 0 || head.first >= ROWS || head.second < 0 || head.second >= COLS)
+        return true;
+    // Self-collision
+    for (int i = 1; i < snake.size(); i++) {
+        if (snake[i] == head)
+            return true;
+    }
+    return false;
+}
