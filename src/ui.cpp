@@ -14,7 +14,6 @@
 
 using namespace std;
 
-// Ensure Windows console uses UTF-8 so Unicode renders correctly
 #ifdef _WIN32
 static inline void ensureUtf8Console()
 {
