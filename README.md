@@ -1,6 +1,18 @@
-## Snake (Console Edition)
+# Snake (Console Edition)
 
 A fast, colorful, cross-platform console Snake game built with modern C++ and CMake.
+
+### Screenshots
+
+**Game Screen**  
+![Game Screen](screenshot/gamescreen.jpg)
+
+**Main Screen**  
+![Main Screen](screenshot/mainscreen.jpg)
+
+### For Players (Build & Play)
+...
+
 
 ### For Players (Build & Play)
 

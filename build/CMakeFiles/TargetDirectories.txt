@@ -1,7 +1,0 @@
-/media/sumit/8A02084702083AA9/IT603/Snake_game/build/CMakeFiles/snake.dir
-/media/sumit/8A02084702083AA9/IT603/Snake_game/build/CMakeFiles/edit_cache.dir
-/media/sumit/8A02084702083AA9/IT603/Snake_game/build/CMakeFiles/rebuild_cache.dir
-/media/sumit/8A02084702083AA9/IT603/Snake_game/build/CMakeFiles/list_install_components.dir
-/media/sumit/8A02084702083AA9/IT603/Snake_game/build/CMakeFiles/install.dir
-/media/sumit/8A02084702083AA9/IT603/Snake_game/build/CMakeFiles/install/local.dir
-/media/sumit/8A02084702083AA9/IT603/Snake_game/build/CMakeFiles/install/strip.dir
