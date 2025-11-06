@@ -11,10 +11,6 @@ A fast, colorful, cross-platform console Snake game built with modern C++ and CM
 ![Game Screen](screenshot/gamescreen.png)
 
 ### For Players (Build & Play)
-...
-
-
-### For Players (Build & Play)
 
 - **Prerequisites**
   - CMake 3.12+
