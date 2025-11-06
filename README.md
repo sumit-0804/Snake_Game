@@ -4,11 +4,11 @@ A fast, colorful, cross-platform console Snake game built with modern C++ and CM
 
 ### Screenshots
 
-**Game Screen**  
-![Game Screen](screenshot/gamescreen.png)
-
 **Main Screen**  
 ![Main Screen](screenshot/mainscreen.png)
+
+**Game Screen**  
+![Game Screen](screenshot/gamescreen.png)
 
 ### For Players (Build & Play)
 ...
