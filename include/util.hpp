@@ -1,12 +1,13 @@
 #pragma once
 
 #include "types.hpp"
+#include "rng.hpp"
 
 int urand(int lo, int hi);
 bool inBounds(const GameConfig &cfg, Vec v);
 bool isOpposite(Dir a, Dir b);
 Vec step(Vec v, Dir d);
-FoodType determineFoodType(const GameConfig &cfg);
-void placeFood(const GameConfig &cfg, GameState &st);
+FoodType determineFoodType(const GameConfig &cfg, Rng &rng = systemRng());
+void placeFood(const GameConfig &cfg, GameState &st, Rng &rng = systemRng());
 void buildObstacles(const GameConfig &cfg, GameState &st);
 void calculateBoardSize(GameConfig &cfg);
