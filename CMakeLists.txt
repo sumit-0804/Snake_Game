@@ -31,6 +31,7 @@ add_executable(snake
     src/ui.cpp
     src/game.cpp
     src/score.cpp
+    src/tick.cpp
 )
 
 target_include_directories(snake PRIVATE include)

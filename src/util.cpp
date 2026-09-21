@@ -4,12 +4,29 @@
 #include "util.hpp"
 #include "platform.hpp"
 
+namespace
+{
+    struct SystemRng : Rng
+    {
+        int next(int lo, int hi) override
+        {
+            static std::random_device rd;
+            static std::mt19937 gen(rd());
+            std::uniform_int_distribution<int> dist(lo, hi);
+            return dist(gen);
+        }
+    };
+} // namespace
+
+Rng &systemRng()
+{
+    static SystemRng instance;
+    return instance;
+}
+
 int urand(int lo, int hi)
 {
-    static std::random_device rd;
-    static std::mt19937 gen(rd());
-    std::uniform_int_distribution<int> dist(lo, hi);
-    return dist(gen);
+    return systemRng().next(lo, hi);
 }
 
 bool inBounds(const GameConfig &cfg, Vec v)
@@ -35,9 +52,9 @@ Vec step(Vec v, Dir d)
     return v;
 }
 
-FoodType determineFoodType(const GameConfig &cfg)
+FoodType determineFoodType(const GameConfig &cfg, Rng &rng)
 {
-    int chance = urand(1, 100);
+    int chance = rng.next(1, 100);
     if (chance <= cfg.goldenAppleChance)
     {
         return GOLDEN;
@@ -45,7 +62,7 @@ FoodType determineFoodType(const GameConfig &cfg)
     return NORMAL;
 }
 
-void placeFood(const GameConfig &cfg, GameState &st)
+void placeFood(const GameConfig &cfg, GameState &st, Rng &rng)
 {
     std::vector<std::pair<int, int>> freeCells;
     std::vector<std::vector<bool>> occ(cfg.rows, std::vector<bool>(cfg.cols, false));
@@ -63,9 +80,9 @@ void placeFood(const GameConfig &cfg, GameState &st)
         st.gameOver = true;
         return;
     }
-    auto rc = freeCells[urand(0, (int)freeCells.size() - 1)];
+    auto rc = freeCells[rng.next(0, (int)freeCells.size() - 1)];
     st.food = {rc.first, rc.second};
-    st.foodType = determineFoodType(cfg);
+    st.foodType = determineFoodType(cfg, rng);
 }
 
 void buildObstacles(const GameConfig &cfg, GameState &st)

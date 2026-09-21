@@ -12,6 +12,7 @@
 
 #include "game.hpp"
 #include "render.hpp"
+#include "tick.hpp"
 #include "util.hpp"
 #include "score.hpp"
 
@@ -315,56 +316,19 @@ void runGame(const GameConfig &cfg, GameState &st, int originRow, int originCol)
             this_thread::sleep_for(chrono::milliseconds(frame_ms - elapsed));
         }
         last = chrono::steady_clock::now();
-        Vec newHead = step(st.snake.front(), st.dir);
-        if (!inBounds(cfg, newHead))
-            st.gameOver = true;
-        if (!st.gameOver && st.obstacles.count({newHead.r, newHead.c}))
-            st.gameOver = true;
-        if (!st.gameOver)
-        {
-            for (auto &seg : st.snake)
-                if (seg.r == newHead.r && seg.c == newHead.c)
-                {
-                    st.gameOver = true;
-                    break;
-                }
-        }
-        if (st.gameOver)
+        TickResult tick = advanceTick(cfg, st);
+        if (!tick.advanced)
             break;
-        Vec tail = st.snake.back();
-        st.snake.push_front(newHead);
-        st.moves++;
-        bool ate = (newHead.r == st.food.r && newHead.c == st.food.c);
-        if (ate)
+        if (tick.tailVacated)
         {
-            if (st.foodType == GOLDEN)
-            {
-                st.score += cfg.goldenAppleScore;
-                st.goldenApplesEaten++;
-                st.segmentsToGrow += 2;
-            }
-            else
-            {
-                st.score += cfg.normalAppleScore;
-                st.segmentsToGrow += 1;
-            }
-            placeFood(cfg, st);
-        }
-        if (st.segmentsToGrow > 0)
-        {
-            st.segmentsToGrow--;
-        }
-        else
-        {
-            st.snake.pop_back();
-            drawCell(cfg, originRow, originCol, tail, EMPTY);
+            drawCell(cfg, originRow, originCol, tick.vacatedTail, EMPTY);
         }
         if (st.snake.size() > 1)
         {
             drawCell(cfg, originRow, originCol, st.snake[1], SNAKE_BODY);
         }
         drawCell(cfg, originRow, originCol, st.snake.front(), SNAKE_HEAD);
-        if (ate && !st.gameOver)
+        if (tick.ate && !st.gameOver)
         {
             foodGlyph = (st.foodType == GOLDEN) ? FOOD_GOLDEN : FOOD_NORMAL;
             drawCell(cfg, originRow, originCol, st.food, foodGlyph);
